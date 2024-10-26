@@ -63,14 +63,14 @@ function getRecommendation(param, species) {
             break;
 
         case "pH":
-            if (parseFloat(param.current) < 6.5) return "pH terlalu rendah,  tambahkan kapur pertanian CaCO3 dan CaMg(CO3)2 dapat menaikkan pH hingga 8.3 (Wurtz, 2002).";
+            if (parseFloat(param.current) < 6.5) return "pH terlalu rendah,  tambahkan kapur pertanian CaCO3 dan CaMg(CO3)2 dapat menaikkan pH hingga 8.3.";
             else if (parseFloat(param.current) > 8.5) return "pH terlalu tinggi, tambahkan bahan penurun pH seperti asam organik.";
             break;
 
         case "Oksigen Terlarut (DO)":
-            if (species === "Koi" && parseFloat(param.current) < 5) return "DO terlalu rendah untuk Koi, tambahkan aerasi seperti kincir air pada kolam (melki et al., 2021).";
-            else if ((species === "Gurame" || species === "Nila") && parseFloat(param.current) < 3) return "DO terlalu rendah, tambahkan aerasi seperti kincir air pada kolam (melki et al., 2021).";
-            else if (species === "Lele" && parseFloat(param.current) < 2) return "DO terlalu rendah untuk Lele, tambahkan aerasi seperti kincir air pada kolam (melki et al., 2021).";
+            if (species === "Koi" && parseFloat(param.current) < 5) return "DO terlalu rendah untuk Koi, tambahkan aerasi seperti kincir air pada kolam.";
+            else if ((species === "Gurame" || species === "Nila") && parseFloat(param.current) < 3) return "DO terlalu rendah, tambahkan aerasi seperti kincir air pada kolam.";
+            else if (species === "Lele" && parseFloat(param.current) < 2) return "DO terlalu rendah untuk Lele, tambahkan aerasi seperti kincir air pada kolam.";
             break;
 
         case "Amonia":
