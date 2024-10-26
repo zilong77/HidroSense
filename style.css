@@ -41,6 +41,18 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+@media (min-width: 768px) {
+    .content {
+        flex-direction: row;
+    }
+}
+
 h2 {
     color: #333;
     margin-bottom: 15px;
@@ -87,6 +99,32 @@ button:hover {
     border-radius: 5px;
     border: 1px solid #ddd;
     margin-top: 20px;
+}
+
+.result-segment {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: #E0F7FA;
+    border-radius: 8px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.result-segment i {
+    font-size: 1.5em;
+    color: #4CC9FE;
+}
+
+.result-segment h3 {
+    font-size: 18px;
+    color: #0077b6;
+    margin-bottom: 8px;
+}
+
+.result-segment p {
+    color: #555;
+    line-height: 1.5;
 }
 
 footer {
