@@ -1,45 +1,59 @@
 function analyzeWaterQuality() {
-    const species = document.getElementById('species').value;
-    const temperature = parseFloat(document.getElementById('temperature').value);
-    const ph = parseFloat(document.getElementById('ph').value);
-    const doLevel = parseFloat(document.getElementById('do').value);
-    const ammonia = parseFloat(document.getElementById('ammonia').value);
-    const turbidity = parseFloat(document.getElementById('turbidity').value);
-    const co2 = parseFloat(document.getElementById('co2').value);
-    const alkalinity = parseFloat(document.getElementById('alkalinity').value);
+    // Validasi input data
+    const requiredFields = ['species', 'temperature', 'ph', 'do', 'ammonia', 'turbidity', 'co2', 'alkalinity'];
+    for (const field of requiredFields) {
+        const value = document.getElementById(field).value;
+        if (!value) {
+            alert("Mohon isi semua data sebelum melakukan analisis.");
+            return;
+        }
+    }
 
-    // Data ideal per spesies
-    const idealValues = {
-        Gurame: { temperature: "25-30°C", ph: "6.5-8.5", doLevel: "≥ 3 mg/L", ammonia: "<0.1 mg/L", turbidity: "25-40 cm", co2: "<12 mg/L", alkalinity: ">20 mg/L" },
-        Koi: { temperature: "20-30°C", ph: "6.5-8", doLevel: "≥ 5 mg/L", ammonia: "<0.02 mg/L", turbidity: "20-35 cm", co2: "<12 mg/L", alkalinity: "50-300 mg/L" },
-        Lele: { temperature: "25-30°C", ph: "6.5-8", doLevel: "≥ 2 mg/L", ammonia: "<0.1 mg/L", turbidity: "25-30 cm", co2: "<12 mg/L", alkalinity: ">50 mg/L" },
-        Nila: { temperature: "25-32°C", ph: "6.5-8.5", doLevel: "≥ 3 mg/L", ammonia: "<0.02 mg/L", turbidity: "30-40 cm", co2: "<15 mg/L", alkalinity: ">20 mg/L" }
-    };
-
-    const results = [
-        { name: "Suhu", current: `${temperature}°C`, ideal: idealValues[species].temperature },
-        { name: "pH", current: `${ph}`, ideal: idealValues[species].ph },
-        { name: "Oksigen Terlarut (DO)", current: `${doLevel} mg/L`, ideal: idealValues[species].doLevel },
-        { name: "Amonia", current: `${ammonia} mg/L`, ideal: idealValues[species].ammonia },
-        { name: "Kecerahan", current: `${turbidity} cm`, ideal: idealValues[species].turbidity },
-        { name: "Karbondioksida Bebas (CO2)", current: `${co2} mg/L`, ideal: idealValues[species].co2 },
-        { name: "Alkalinitas", current: `${alkalinity} mg/L`, ideal: idealValues[species].alkalinity }
-    ];
-
+    // Animasi loading singkat sebelum hasil muncul
     const analysisResult = document.getElementById('analysisResult');
-    analysisResult.innerHTML = `<h2>Hasil Analisis</h2>`;
+    analysisResult.innerHTML = '<p>Analisis sedang berjalan...</p>';
+    setTimeout(() => {
+        const species = document.getElementById('species').value;
+        const temperature = parseFloat(document.getElementById('temperature').value);
+        const ph = parseFloat(document.getElementById('ph').value);
+        const doLevel = parseFloat(document.getElementById('do').value);
+        const ammonia = parseFloat(document.getElementById('ammonia').value);
+        const turbidity = parseFloat(document.getElementById('turbidity').value);
+        const co2 = parseFloat(document.getElementById('co2').value);
+        const alkalinity = parseFloat(document.getElementById('alkalinity').value);
 
-    results.forEach(param => {
-        const resultSegment = document.createElement('div');
-        resultSegment.classList.add('result-segment');
-        resultSegment.innerHTML = `
-            <h4>${param.name}</h4>
-            <p><strong>Ideal:</strong> ${param.ideal}</p>
-            <p><strong>Saat Ini:</strong> ${param.current}</p>
-            <p><strong>Indikasi atau Rekomendasi:</strong> ${getRecommendation(param, species)}</p>
-        `;
-        analysisResult.appendChild(resultSegment);
-    });
+        // Data ideal per spesies
+        const idealValues = {
+            Gurame: { temperature: "25-30°C", ph: "6.5-8.5", doLevel: "≥ 3 mg/L", ammonia: "<0.1 mg/L", turbidity: "25-40 cm", co2: "<12 mg/L", alkalinity: ">20 mg/L" },
+            Koi: { temperature: "20-30°C", ph: "6.5-8", doLevel: "≥ 5 mg/L", ammonia: "<0.02 mg/L", turbidity: "20-35 cm", co2: "<12 mg/L", alkalinity: "50-300 mg/L" },
+            Lele: { temperature: "25-30°C", ph: "6.5-8", doLevel: "≥ 2 mg/L", ammonia: "<0.1 mg/L", turbidity: "25-30 cm", co2: "<12 mg/L", alkalinity: ">50 mg/L" },
+            Nila: { temperature: "25-32°C", ph: "6.5-8.5", doLevel: "≥ 3 mg/L", ammonia: "<0.02 mg/L", turbidity: "30-40 cm", co2: "<15 mg/L", alkalinity: ">20 mg/L" }
+        };
+
+        const results = [
+            { name: "Suhu", current: `${temperature}°C`, ideal: idealValues[species].temperature },
+            { name: "pH", current: `${ph}`, ideal: idealValues[species].ph },
+            { name: "Oksigen Terlarut (DO)", current: `${doLevel} mg/L`, ideal: idealValues[species].doLevel },
+            { name: "Amonia", current: `${ammonia} mg/L`, ideal: idealValues[species].ammonia },
+            { name: "Kecerahan", current: `${turbidity} cm`, ideal: idealValues[species].turbidity },
+            { name: "Karbondioksida Bebas (CO2)", current: `${co2} mg/L`, ideal: idealValues[species].co2 },
+            { name: "Alkalinitas", current: `${alkalinity} mg/L`, ideal: idealValues[species].alkalinity }
+        ];
+
+        analysisResult.innerHTML = `<h2>Hasil Analisis</h2>`;
+
+        results.forEach(param => {
+            const resultSegment = document.createElement('div');
+            resultSegment.classList.add('result-segment');
+            resultSegment.innerHTML = `
+                <h4>${param.name}</h4>
+                <p><strong>Ideal:</strong> ${param.ideal}</p>
+                <p><strong>Saat Ini:</strong> ${param.current}</p>
+                <p><strong>Indikasi atau Rekomendasi:</strong> ${getRecommendation(param, species)}</p>
+            `;
+            analysisResult.appendChild(resultSegment);
+        });
+    }, 500); // animasi loading 500ms
 }
 
 function getRecommendation(param, species) {
