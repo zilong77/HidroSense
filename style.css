@@ -100,13 +100,28 @@ button:hover {
     margin-top: 0;
 }
 
-.result-segment {
-    margin-bottom: 15px;
+.card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     padding: 15px;
     background-color: #ffffff;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 10px;
+    margin-bottom: 15px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.icon {
+    font-size: 1.5em;
+    margin-right: 10px;
+    color: #0078d7;
+}
+
+.result-segment h4 {
+    font-size: 1.2em;
+    margin: 0;
+    color: #333;
 }
 
 footer {

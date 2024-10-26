@@ -1,5 +1,4 @@
 function analyzeWaterQuality() {
-    // Validasi input data
     const requiredFields = ['species', 'temperature', 'ph', 'do', 'ammonia', 'turbidity', 'co2', 'alkalinity'];
     for (const field of requiredFields) {
         const value = document.getElementById(field).value;
@@ -9,7 +8,6 @@ function analyzeWaterQuality() {
         }
     }
 
-    // Animasi loading singkat sebelum hasil muncul
     const analysisResult = document.getElementById('analysisResult');
     analysisResult.innerHTML = '<p>Analisis sedang berjalan...</p>';
     setTimeout(() => {
@@ -22,7 +20,6 @@ function analyzeWaterQuality() {
         const co2 = parseFloat(document.getElementById('co2').value);
         const alkalinity = parseFloat(document.getElementById('alkalinity').value);
 
-        // Data ideal per spesies
         const idealValues = {
             Gurame: { temperature: "25-30°C", ph: "6.5-8.5", doLevel: "≥ 3 mg/L", ammonia: "<0.1 mg/L", turbidity: "25-40 cm", co2: "<12 mg/L", alkalinity: ">20 mg/L" },
             Koi: { temperature: "20-30°C", ph: "6.5-8", doLevel: "≥ 5 mg/L", ammonia: "<0.02 mg/L", turbidity: "20-35 cm", co2: "<12 mg/L", alkalinity: "50-300 mg/L" },
@@ -30,30 +27,32 @@ function analyzeWaterQuality() {
             Nila: { temperature: "25-32°C", ph: "6.5-8.5", doLevel: "≥ 3 mg/L", ammonia: "<0.02 mg/L", turbidity: "30-40 cm", co2: "<15 mg/L", alkalinity: ">20 mg/L" }
         };
 
-        const results = [
-            { name: "Suhu", current: `${temperature}°C`, ideal: idealValues[species].temperature },
-            { name: "pH", current: `${ph}`, ideal: idealValues[species].ph },
-            { name: "Oksigen Terlarut (DO)", current: `${doLevel} mg/L`, ideal: idealValues[species].doLevel },
-            { name: "Amonia", current: `${ammonia} mg/L`, ideal: idealValues[species].ammonia },
-            { name: "Kecerahan", current: `${turbidity} cm`, ideal: idealValues[species].turbidity },
-            { name: "Karbondioksida Bebas (CO2)", current: `${co2} mg/L`, ideal: idealValues[species].co2 },
-            { name: "Alkalinitas", current: `${alkalinity} mg/L`, ideal: idealValues[species].alkalinity }
+        const parameters = [
+            { name: "Suhu", icon: "fa-thermometer-half", current: `${temperature}°C`, ideal: idealValues[species].temperature },
+            { name: "pH", icon: "fa-flask", current: `${ph}`, ideal: idealValues[species].ph },
+            { name: "Oksigen Terlarut (DO)", icon: "fa-water", current: `${doLevel} mg/L`, ideal: idealValues[species].doLevel },
+            { name: "Amonia", icon: "fa-vial", current: `${ammonia} mg/L`, ideal: idealValues[species].ammonia },
+            { name: "Kecerahan", icon: "fa-eye", current: `${turbidity} cm`, ideal: idealValues[species].turbidity },
+            { name: "Karbondioksida Bebas (CO2)", icon: "fa-wind", current: `${co2} mg/L`, ideal: idealValues[species].co2 },
+            { name: "Alkalinitas", icon: "fa-balance-scale", current: `${alkalinity} mg/L`, ideal: idealValues[species].alkalinity }
         ];
 
         analysisResult.innerHTML = `<h2>Hasil Analisis</h2>`;
-
-        results.forEach(param => {
+        parameters.forEach(param => {
             const resultSegment = document.createElement('div');
-            resultSegment.classList.add('result-segment');
+            resultSegment.classList.add('card');
             resultSegment.innerHTML = `
-                <h4>${param.name}</h4>
-                <p><strong>Ideal:</strong> ${param.ideal}</p>
-                <p><strong>Saat Ini:</strong> ${param.current}</p>
-                <p><strong>Indikasi atau Rekomendasi:</strong> ${getRecommendation(param, species)}</p>
+                <i class="fas ${param.icon} icon"></i>
+                <div class="result-segment">
+                    <h4>${param.name}</h4>
+                    <p><strong>Ideal:</strong> ${param.ideal}</p>
+                    <p><strong>Saat Ini:</strong> ${param.current}</p>
+                    <p><strong>Indikasi atau Rekomendasi:</strong> ${getRecommendation(param, species)}</p>
+                </div>
             `;
             analysisResult.appendChild(resultSegment);
         });
-    }, 500); // animasi loading 500ms
+    }, 500);
 }
 
 function getRecommendation(param, species) {
@@ -112,3 +111,4 @@ function getRecommendation(param, species) {
     }
     return "Parameter dalam batas ideal.";
 }
+

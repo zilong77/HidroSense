@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Pendukung Keputusan Kualitas Air</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
@@ -13,8 +14,8 @@
     <main>
         <div class="container">
             <div class="content">
-                <!-- Form untuk input parameter kualitas air -->
                 <section class="form-container">
+                    <!-- Form input untuk parameter kualitas air -->
                     <label for="species">Pilih Spesies Ikan:</label>
                     <select id="species" aria-label="Pilih Spesies Ikan">
                         <option value="Gurame">Gurame</option>
@@ -47,10 +48,10 @@
                     <button onclick="analyzeWaterQuality()">Analisis</button>
                 </section>
 
-                <!-- Hasil Analisis -->
+                <!-- Hasil Analisis dalam bentuk kartu -->
                 <section id="analysisResult" class="result-container">
                     <h2>Hasil Analisis</h2>
-                    <!-- Hasil analisis akan ditampilkan di sini -->
+                    <!-- Setiap kartu hasil analisis akan ditampilkan di sini -->
                 </section>
             </div>
         </div>
