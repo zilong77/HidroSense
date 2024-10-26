@@ -15,21 +15,26 @@ body {
 .container {
     background-color: #fff;
     padding: 20px;
-    max-width: 600px;
+    max-width: 900px;
     width: 100%;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
 }
 
 h1 {
     font-size: 1.8em;
     color: #333;
     margin-bottom: 20px;
+    text-align: center;
+}
+
+.content {
+    display: flex;
+    gap: 20px;
 }
 
 .form-container {
-    text-align: left;
+    width: 45%;
 }
 
 label {
@@ -66,8 +71,7 @@ button:hover {
 }
 
 .result-container {
-    margin-top: 20px;
-    text-align: left;
+    width: 50%;
     background-color: #f9f9f9;
     padding: 15px;
     border-radius: 5px;
@@ -76,14 +80,25 @@ button:hover {
 
 .result-container h3 {
     color: #0073e6;
+    font-size: 1.2em;
+    margin-top: 0;
 }
 
-.result-container ul {
-    list-style-type: none;
-    padding: 0;
+.result-segment {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
-.result-container li {
-    margin-bottom: 10px;
+.result-segment h4 {
+    margin: 0;
     color: #333;
+    font-size: 1.1em;
+}
+
+.result-segment p {
+    margin: 5px 0;
+    color: #555;
 }
