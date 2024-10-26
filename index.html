@@ -4,53 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Pendukung Keputusan Kualitas Air</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Sistem Pendukung Keputusan Kualitas Air pada Budidaya Air Tawar</h1>
-        
-        <div class="content">
-            <div class="form-container">
-                <label for="species">Pilih Spesies Ikan:</label>
-                <select id="species">
-                    <option value="Gurame">Gurame</option>
-                    <option value="Koi">Koi</option>
-                    <option value="Lele">Lele</option>
-                    <option value="Nila">Nila</option>
-                </select>
+        <header>
+            <h1>Analisis Kualitas Air pada Budidaya Ikan</h1>
+        </header>
 
+        <section class="form-section">
+            <h2>Masukkan Data Kualitas Air</h2>
+            <form id="waterQualityForm">
                 <label for="temperature">Suhu (°C):</label>
-                <input type="number" id="temperature" placeholder="Masukkan suhu air">
-
-                <label for="ph">pH:</label>
-                <input type="number" step="0.1" id="ph" placeholder="Masukkan pH air">
+                <input type="number" id="temperature" name="temperature" required>
 
                 <label for="do">Oksigen Terlarut (DO) (mg/L):</label>
-                <input type="number" step="0.1" id="do" placeholder="Masukkan DO air">
+                <input type="number" id="do" name="do" required>
 
-                <label for="ammonia">Amonia (mg/L):</label>
-                <input type="number" step="0.01" id="ammonia" placeholder="Masukkan amonia air">
+                <label for="ph">pH:</label>
+                <input type="number" id="ph" name="ph" required>
 
                 <label for="turbidity">Kecerahan (cm):</label>
-                <input type="number" id="turbidity" placeholder="Masukkan kecerahan air">
+                <input type="number" id="turbidity" name="turbidity" required>
 
-                <label for="co2">Karbondioksida Bebas (CO2) (mg/L):</label>
-                <input type="number" step="0.1" id="co2" placeholder="Masukkan CO2 air">
+                <label for="ammonia">Amonia (mg/L):</label>
+                <input type="number" id="ammonia" name="ammonia" required>
 
-                <label for="alkalinity">Alkalinitas (mg/L):</label>
-                <input type="number" id="alkalinity" placeholder="Masukkan alkalinitas air">
-                
-                <button onclick="analyzeWaterQuality()">Analisis</button>
-            </div>
+                <label for="nitrite">Nitrit (mg/L):</label>
+                <input type="number" id="nitrite" name="nitrite" required>
 
-            <div id="analysisResult" class="result-container">
-                <h2>Hasil Analisis</h2>
+                <label for="nitrate">Nitrat (mg/L):</label>
+                <input type="number" id="nitrate" name="nitrate" required>
+
+                <button type="button" onclick="analyzeData()">Analisis</button>
+            </form>
+        </section>
+
+        <section class="analysis-section">
+            <h2>Hasil Analisis Kualitas Air</h2>
+            <div id="resultContainer" class="result-container">
                 <!-- Hasil analisis akan ditampilkan di sini -->
             </div>
-        </div>
+        </section>
     </div>
-    
+
     <script src="script.js"></script>
 </body>
 </html>
