@@ -58,52 +58,52 @@ function analyzeWaterQuality() {
 function getRecommendation(param, species) {
     switch (param.name) {
         case "Suhu":
-            if (parseFloat(param.current) < 25) return "Suhu terlalu rendah, tambahkan pemanas air.";
-            else if (parseFloat(param.current) > 30) return "Suhu terlalu tinggi, tambahkan aerasi.";
+            if (parseFloat(param.current) < 25) return "Suhu terlalu rendah, kurangi vegetasi disekitar kolam yang menutupi.";
+            else if (parseFloat(param.current) > 30) return "Suhu terlalu tinggi, berikan penutup seperti paranet atau terpal.";
             break;
 
         case "pH":
-            if (parseFloat(param.current) < 6.5) return "pH terlalu rendah, tambahkan kapur atau bahan peningkat pH.";
+            if (parseFloat(param.current) < 6.5) return "pH terlalu rendah,  tambahkan kapur pertanian CaCO3 dan CaMg(CO3)2 dapat menaikkan pH hingga 8.3 (Wurtz, 2002).";
             else if (parseFloat(param.current) > 8.5) return "pH terlalu tinggi, tambahkan bahan penurun pH seperti asam organik.";
             break;
 
         case "Oksigen Terlarut (DO)":
-            if (species === "Koi" && parseFloat(param.current) < 5) return "DO terlalu rendah untuk Koi, tambahkan aerasi.";
-            else if ((species === "Gurame" || species === "Nila") && parseFloat(param.current) < 3) return "DO terlalu rendah, tambahkan aerasi.";
-            else if (species === "Lele" && parseFloat(param.current) < 2) return "DO terlalu rendah untuk Lele, tambahkan aerasi.";
+            if (species === "Koi" && parseFloat(param.current) < 5) return "DO terlalu rendah untuk Koi, tambahkan aerasi seperti kincir air pada kolam (melki et al., 2021).";
+            else if ((species === "Gurame" || species === "Nila") && parseFloat(param.current) < 3) return "DO terlalu rendah, tambahkan aerasi seperti kincir air pada kolam (melki et al., 2021).";
+            else if (species === "Lele" && parseFloat(param.current) < 2) return "DO terlalu rendah untuk Lele, tambahkan aerasi seperti kincir air pada kolam (melki et al., 2021).";
             break;
 
         case "Amonia":
-            if (parseFloat(param.current) >= 0.1) return "Amonia terlalu tinggi, kurangi pemberian pakan atau lakukan pergantian air.";
+            if (parseFloat(param.current) >= 0.1) return "Amonia terlalu tinggi, kurangi pemberian pakan atau lakukan pergantian air sebanyak 25-50%.";
             break;
 
         case "Kecerahan":
             if (species === "Gurame" && (parseFloat(param.current) < 25 || parseFloat(param.current) > 40)) 
-                return "Kecerahan tidak ideal untuk Gurame, pastikan kecerahan dalam kisaran 25-40 cm.";
+                return "Kecerahan tidak ideal untuk Gurame, pastikan kecerahan dalam kisaran 25-40 cm dengan cara lakukan pergantian air sebanyak 25-50%.";
             else if (species === "Koi" && (parseFloat(param.current) < 20 || parseFloat(param.current) > 35)) 
-                return "Kecerahan tidak ideal untuk Koi, pastikan kecerahan dalam kisaran 20-35 cm.";
+                return "Kecerahan tidak ideal untuk Koi, pastikan kecerahan dalam kisaran 20-35 cm dengan cara lakukan pergantian air sebanyak 25-50%.";
             else if (species === "Lele" && (parseFloat(param.current) < 25 || parseFloat(param.current) > 30)) 
-                return "Kecerahan tidak ideal untuk Lele, pastikan kecerahan dalam kisaran 25-30 cm.";
+                return "Kecerahan tidak ideal untuk Lele, pastikan kecerahan dalam kisaran 25-30 cm dengan cara lakukan pergantian air sebanyak 25-50%.";
             else if (species === "Nila" && (parseFloat(param.current) < 30 || parseFloat(param.current) > 40)) 
-                return "Kecerahan tidak ideal untuk Nila, pastikan kecerahan dalam kisaran 30-40 cm.";
+                return "Kecerahan tidak ideal untuk Nila, pastikan kecerahan dalam kisaran 30-40 cm dengan cara lakukan pergantian air sebanyak 25-50%.";
             break;
 
         case "Karbondioksida Bebas (CO2)":
             if (species !== "Nila" && parseFloat(param.current) >= 12) 
-                return "CO2 terlalu tinggi, pastikan aerasi cukup untuk mengurangi kadar CO2.";
+                return "CO2 terlalu tinggi, pastikan aerasi cukup untuk mengurangi kadar CO2 atau tambahkan pupuk pertanian atau tambahkan aerasi.";
             else if (species === "Nila" && parseFloat(param.current) >= 15)
-                return "CO2 terlalu tinggi untuk Nila, pastikan aerasi cukup untuk mengurangi kadar CO2.";
+                return "CO2 terlalu tinggi untuk Nila, pastikan aerasi cukup untuk mengurangi kadar CO2 atau tambahkan pupuk pertanian atau tambahkan aerasi.";
             break;
 
         case "Alkalinitas":
             if (species === "Gurame" && parseFloat(param.current) <= 20) 
-                return "Alkalinitas terlalu rendah untuk Gurame, tambahkan kapur atau bahan peningkat alkalinitas.";
+                return "Alkalinitas terlalu rendah untuk Gurame, tambahkan kapur pertanian CaCO3 dan CaMg(CO3)2.";
             else if (species === "Koi" && (parseFloat(param.current) < 50 || parseFloat(param.current) > 300)) 
                 return "Alkalinitas tidak ideal untuk Koi, pastikan dalam kisaran 50-300 mg/L.";
             else if (species === "Lele" && parseFloat(param.current) <= 50) 
-                return "Alkalinitas terlalu rendah untuk Lele, tambahkan kapur atau bahan peningkat alkalinitas.";
+                return "Alkalinitas terlalu rendah untuk Lele, tambahkan kapur pertanian CaCO3 dan CaMg(CO3)2.";
             else if (species === "Nila" && parseFloat(param.current) <= 20) 
-                return "Alkalinitas terlalu rendah untuk Nila, tambahkan kapur atau bahan peningkat alkalinitas.";
+                return "Alkalinitas terlalu rendah untuk Nila, tambahkan kapur pertanian CaCO3 dan CaMg(CO3)2.";
             break;
 
         default:
