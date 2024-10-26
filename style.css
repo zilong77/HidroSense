@@ -14,24 +14,15 @@ body {
     margin: 0;
 }
 
-.main-header {
-    padding: 20px;
-    background-color: #0078d7;
-    color: #ffffff;
+header {
     text-align: center;
-    position: relative; /* Tambahan ini untuk mengatur posisi absolute elemen anak */
+    margin-bottom: 20px;
 }
 
-.main-header .brand {
-    position: absolute;
-    top: 50%;
-    left: 20px;
-    transform: translateY(-50%);
-}
-
-.main-header h1 {
-    margin: 0;
-    font-size: 1.5em;
+h1 {
+    font-size: 2em;
+    color: #222;
+    margin-bottom: 20px;
 }
 
 .container {
