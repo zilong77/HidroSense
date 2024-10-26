@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Pendukung Keputusan Kualitas Air</title>
+    <title>HidroSense - Sistem Pendukung Keputusan Kualitas Air</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>Sistem Pendukung Keputusan Kualitas Air pada Budidaya Air Tawar</h1>
+    <header class="header header-absolute">
+        <h1>HidroSense</h1>
     </header>
+    
     <main>
         <div class="container">
             <div class="content">
                 <section class="form-container">
-                    <!-- Form input untuk parameter kualitas air -->
                     <label for="species">Pilih Spesies Ikan:</label>
-                    <select id="species" aria-label="Pilih Spesies Ikan">
+                    <select id="species">
                         <option value="Gurame">Gurame</option>
                         <option value="Koi">Koi</option>
                         <option value="Lele">Lele</option>
@@ -48,17 +48,17 @@
                     <button onclick="analyzeWaterQuality()">Analisis</button>
                 </section>
 
-                <!-- Hasil Analisis dalam bentuk kartu -->
                 <section id="analysisResult" class="result-container">
-                    <h2>Hasil Analisis</h2>
-                    <!-- Setiap kartu hasil analisis akan ditampilkan di sini -->
+                    <h2>Hasil Analisis Kualitas Air</h2>
+                    <!-- Hasil analisis akan ditampilkan di sini -->
                 </section>
             </div>
         </div>
     </main>
     <footer>
-        <p>Contact me: https://t.me/akiraaf</p>
+        <p>Contact me: <a href="https://t.me/akiraaf" target="_blank">https://t.me/akiraaf</a></p>
     </footer>
+    
     <script src="script.js"></script>
 </body>
 </html>
