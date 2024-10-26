@@ -1,75 +1,100 @@
-function analyzeData() {
+function analyzeWaterQuality() {
+    const species = document.getElementById('species').value;
     const temperature = parseFloat(document.getElementById('temperature').value);
-    const doLevel = parseFloat(document.getElementById('do').value);
     const ph = parseFloat(document.getElementById('ph').value);
-    const turbidity = parseFloat(document.getElementById('turbidity').value);
+    const doLevel = parseFloat(document.getElementById('do').value);
     const ammonia = parseFloat(document.getElementById('ammonia').value);
-    const nitrite = parseFloat(document.getElementById('nitrite').value);
-    const nitrate = parseFloat(document.getElementById('nitrate').value);
+    const turbidity = parseFloat(document.getElementById('turbidity').value);
+    const co2 = parseFloat(document.getElementById('co2').value);
+    const alkalinity = parseFloat(document.getElementById('alkalinity').value);
+
+    // Data ideal per spesies
+    const idealValues = {
+        Gurame: { temperature: "25-30°C", ph: "6.5-8.5", doLevel: "≥ 3 mg/L", ammonia: "<0.1 mg/L", turbidity: "25-40 cm", co2: "<12 mg/L", alkalinity: ">20 mg/L" },
+        Koi: { temperature: "20-30°C", ph: "6.5-8", doLevel: "≥ 5 mg/L", ammonia: "<0.02 mg/L", turbidity: "20-35 cm", co2: "<12 mg/L", alkalinity: "50-300 mg/L" },
+        Lele: { temperature: "25-30°C", ph: "6.5-8", doLevel: "≥ 2 mg/L", ammonia: "<0.1 mg/L", turbidity: "25-30 cm", co2: "<12 mg/L", alkalinity: ">50 mg/L" },
+        Nila: { temperature: "25-32°C", ph: "6.5-8.5", doLevel: "≥ 3 mg/L", ammonia: "<0.02 mg/L", turbidity: "30-40 cm", co2: "<15 mg/L", alkalinity: ">20 mg/L" }
+    };
 
     const results = [
-        {
-            parameter: "Suhu",
-            ideal: "25-30°C",
-            current: `${temperature}°C`,
-            recommendation: temperature < 25 ? "Naikkan suhu air." :
-                             temperature > 30 ? "Turunkan suhu air." :
-                             "Suhu sudah ideal."
-        },
-        {
-            parameter: "Oksigen Terlarut (DO)",
-            ideal: "≥ 2 mg/L",
-            current: `${doLevel} mg/L`,
-            recommendation: doLevel < 2 ? "Tambahkan aerasi." : "DO sudah ideal."
-        },
-        {
-            parameter: "pH",
-            ideal: "6.5 - 8",
-            current: `${ph}`,
-            recommendation: ph < 6.5 ? "Tambahkan kapur." : 
-                             ph > 8 ? "Tambahkan asam organik." :
-                             "pH sudah ideal."
-        },
-        {
-            parameter: "Kecerahan",
-            ideal: "25 - 30 cm",
-            current: `${turbidity} cm`,
-            recommendation: turbidity < 25 ? "Kurangi kekeruhan air." : 
-                             turbidity > 30 ? "Tingkatkan filtrasi." :
-                             "Kecerahan sudah ideal."
-        },
-        {
-            parameter: "Amonia",
-            ideal: "< 0.1 mg/L",
-            current: `${ammonia} mg/L`,
-            recommendation: ammonia >= 0.1 ? "Ganti sebagian air atau tambahkan zeolit." : "Amonia sudah ideal."
-        },
-        {
-            parameter: "Nitrit",
-            ideal: "< 0.02 mg/L",
-            current: `${nitrite} mg/L`,
-            recommendation: nitrite >= 0.02 ? "Tambahkan aerasi." : "Nitrit sudah ideal."
-        },
-        {
-            parameter: "Nitrat",
-            ideal: "< 50 mg/L",
-            current: `${nitrate} mg/L`,
-            recommendation: nitrate >= 50 ? "Lakukan penggantian air." : "Nitrat sudah ideal."
-        }
+        { name: "Suhu", current: `${temperature}°C`, ideal: idealValues[species].temperature },
+        { name: "pH", current: `${ph}`, ideal: idealValues[species].ph },
+        { name: "Oksigen Terlarut (DO)", current: `${doLevel} mg/L`, ideal: idealValues[species].doLevel },
+        { name: "Amonia", current: `${ammonia} mg/L`, ideal: idealValues[species].ammonia },
+        { name: "Kecerahan", current: `${turbidity} cm`, ideal: idealValues[species].turbidity },
+        { name: "Karbondioksida Bebas (CO2)", current: `${co2} mg/L`, ideal: idealValues[species].co2 },
+        { name: "Alkalinitas", current: `${alkalinity} mg/L`, ideal: idealValues[species].alkalinity }
     ];
 
-    const resultContainer = document.getElementById('resultContainer');
-    resultContainer.innerHTML = '';
+    const analysisResult = document.getElementById('analysisResult');
+    analysisResult.innerHTML = `<h2>Hasil Analisis</h2>`;
 
-    results.forEach(result => {
-        const segment = document.createElement('div');
-        segment.classList.add('parameter-segment');
-        segment.innerHTML = `
-            <h3>${result.parameter}</h3>
-            <p>Ideal: ${result.ideal}</p>
-            <p>Saat ini: ${result.current}</p>
-            <p>Rekomendasi: ${result.recommendation}</p>
+    results.forEach(param => {
+        const resultSegment = document.createElement('div');
+        resultSegment.classList.add('result-segment');
+        resultSegment.innerHTML = `
+            <h4>${param.name}</h4>
+            <p><strong>Ideal:</strong> ${param.ideal}</p>
+            <p><strong>Saat Ini:</strong> ${param.current}</p>
+            <p><strong>Indikasi atau Rekomendasi:</strong> ${getRecommendation(param, species)}</p>
         `;
-        resultContainer.appendChild(segment);
+        analysisResult.appendChild(resultSegment);
     });
+}
+
+function getRecommendation(param, species) {
+    switch (param.name) {
+        case "Suhu":
+            if (parseFloat(param.current) < 25) return "Suhu terlalu rendah, tambahkan pemanas air.";
+            else if (parseFloat(param.current) > 30) return "Suhu terlalu tinggi, tambahkan aerasi.";
+            break;
+
+        case "pH":
+            if (parseFloat(param.current) < 6.5) return "pH terlalu rendah, tambahkan kapur atau bahan peningkat pH.";
+            else if (parseFloat(param.current) > 8.5) return "pH terlalu tinggi, tambahkan bahan penurun pH seperti asam organik.";
+            break;
+
+        case "Oksigen Terlarut (DO)":
+            if (species === "Koi" && parseFloat(param.current) < 5) return "DO terlalu rendah untuk Koi, tambahkan aerasi.";
+            else if ((species === "Gurame" || species === "Nila") && parseFloat(param.current) < 3) return "DO terlalu rendah, tambahkan aerasi.";
+            else if (species === "Lele" && parseFloat(param.current) < 2) return "DO terlalu rendah untuk Lele, tambahkan aerasi.";
+            break;
+
+        case "Amonia":
+            if (parseFloat(param.current) >= 0.1) return "Amonia terlalu tinggi, kurangi pemberian pakan atau lakukan pergantian air.";
+            break;
+
+        case "Kecerahan":
+            if (species === "Gurame" && (parseFloat(param.current) < 25 || parseFloat(param.current) > 40)) 
+                return "Kecerahan tidak ideal untuk Gurame, pastikan kecerahan dalam kisaran 25-40 cm.";
+            else if (species === "Koi" && (parseFloat(param.current) < 20 || parseFloat(param.current) > 35)) 
+                return "Kecerahan tidak ideal untuk Koi, pastikan kecerahan dalam kisaran 20-35 cm.";
+            else if (species === "Lele" && (parseFloat(param.current) < 25 || parseFloat(param.current) > 30)) 
+                return "Kecerahan tidak ideal untuk Lele, pastikan kecerahan dalam kisaran 25-30 cm.";
+            else if (species === "Nila" && (parseFloat(param.current) < 30 || parseFloat(param.current) > 40)) 
+                return "Kecerahan tidak ideal untuk Nila, pastikan kecerahan dalam kisaran 30-40 cm.";
+            break;
+
+        case "Karbondioksida Bebas (CO2)":
+            if (species !== "Nila" && parseFloat(param.current) >= 12) 
+                return "CO2 terlalu tinggi, pastikan aerasi cukup untuk mengurangi kadar CO2.";
+            else if (species === "Nila" && parseFloat(param.current) >= 15)
+                return "CO2 terlalu tinggi untuk Nila, pastikan aerasi cukup untuk mengurangi kadar CO2.";
+            break;
+
+        case "Alkalinitas":
+            if (species === "Gurame" && parseFloat(param.current) <= 20) 
+                return "Alkalinitas terlalu rendah untuk Gurame, tambahkan kapur atau bahan peningkat alkalinitas.";
+            else if (species === "Koi" && (parseFloat(param.current) < 50 || parseFloat(param.current) > 300)) 
+                return "Alkalinitas tidak ideal untuk Koi, pastikan dalam kisaran 50-300 mg/L.";
+            else if (species === "Lele" && parseFloat(param.current) <= 50) 
+                return "Alkalinitas terlalu rendah untuk Lele, tambahkan kapur atau bahan peningkat alkalinitas.";
+            else if (species === "Nila" && parseFloat(param.current) <= 20) 
+                return "Alkalinitas terlalu rendah untuk Nila, tambahkan kapur atau bahan peningkat alkalinitas.";
+            break;
+
+        default:
+            return "Parameter dalam batas ideal.";
+    }
+    return "Parameter dalam batas ideal.";
 }
